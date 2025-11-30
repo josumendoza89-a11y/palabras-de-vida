@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palabras de Vida | Volviendo a la Senda Antigua</title>
+    
+    <!-- Tailwind CSS (Estilos Modernos) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fuentes Tipográficas: Merriweather (Solemne) y Inter (Legible) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Iconos Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fcfbf9; /* Tono papiro muy suave */
+            color: #1a202c;
+        }
+        h1, h2, h3, h4, .serif-font {
+            font-family: 'Merriweather', serif;
+        }
+        /* Estilo para versículos destacados */
+        .bible-verse {
+            border-left: 4px solid #b45309; /* Color ámbar */
+            padding-left: 1rem;
+            font-style: italic;
+            color: #431407;
+            background-color: #fffbeb;
+            padding: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin: 1.5rem 0;
+            font-family: 'Merriweather', serif;
+        }
+        .hero-bg {
+            background-image: linear-gradient(rgba(15, 20, 25, 0.85), rgba(15, 20, 25, 0.9)), url('https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .smooth-scroll { scroll-behavior: smooth; }
+        /* Ocultar scrollbar en modales */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="smooth-scroll flex flex-col min-h-screen">
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <nav class="bg-white shadow-sm fixed w-full z-40 border-b border-amber-100 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-24 items-center">
+                <!-- Logo -->
+                <div class="flex items-center cursor-pointer group" onclick="window.scrollTo(0,0)">
+                    <div class="bg-amber-900 text-amber-50 p-2 rounded mr-3 group-hover:bg-amber-800 transition shadow-sm">
+                        <i data-lucide="book-open" class="h-6 w-6"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-bold text-lg md:text-xl tracking-tight text-slate-900 serif-font leading-tight">Palabras de Vida</span>
+                        <span class="text-xs md:text-sm text-slate-600 italic">Volviendo a la Senda Antigua</span>
+                        <span class="text-[10px] text-amber-800 uppercase tracking-wider mt-1 font-bold">Pr. Julio César Mendoza</span>
+                    </div>
+                </div>
+                
+                <!-- Menú Escritorio -->
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="#inicio" class="text-slate-600 hover:text-amber-800 font-medium transition text-sm uppercase tracking-wide">Inicio</a>
+                    <a href="#biblia" class="text-slate-600 hover:text-amber-800 font-medium transition text-sm uppercase tracking-wide">Lectura</a>
+                    <a href="#contenido" class="text-slate-600 hover:text-amber-800 font-medium transition text-sm uppercase tracking-wide">Biblioteca</a>
+                    <a href="#cursos" class="text-slate-600 hover:text-amber-800 font-medium transition text-sm uppercase tracking-wide">Cursos</a>
+                    
+                    <!-- Botón WhatsApp Donación -->
+                    <button onclick="contactDonation()" class="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-full font-bold transition flex items-center shadow-sm hover:shadow-md transform hover:-translate-y-0.5">
+                        <i data-lucide="message-circle" class="w-4 h-4 mr-2"></i> Ofrendar
+                    </button>
+                </div>
+
+                <!-- Botón Menú Móvil -->
+                <div class="flex items-center lg:hidden">
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-slate-900 focus:outline-none p-2">
+                        <i data-lucide="menu" class="h-8 w-8"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menú Móvil Desplegable -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-slate-100 shadow-lg absolute w-full left-0">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="#inicio" class="block py-3 text-base font-medium text-slate-700 border-b border-slate-50 hover:bg-slate-50 pl-2 rounded">Inicio</a>
+                <a href="#biblia" class="block py-3 text-base font-medium text-slate-700 border-b border-slate-50 hover:bg-slate-50 pl-2 rounded">Lectura Diaria</a>
+                <a href="#contenido" class="block py-3 text-base font-medium text-slate-700 border-b border-slate-50 hover:bg-slate-50 pl-2 rounded">Biblioteca (Devocionales)</a>
+                <a href="#cursos" class="block py-3 text-base font-medium text-slate-700 border-b border-slate-50 hover:bg-slate-50 pl-2 rounded">Cursos Bíblicos</a>
+                <button onclick="contactDonation()" class="w-full mt-4 bg-green-600 text-white py-3 rounded-lg font-bold flex justify-center items-center shadow-md active:scale-95 transition">
+                    <i data-lucide="message-circle" class="w-5 h-5 mr-2"></i> Contactar para Ofrendar
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SECCIÓN HERO (PORTADA) -->
+    <section id="inicio" class="hero-bg min-h-screen flex items-center justify-center text-center px-4 relative pt-20">
+        <div class="max-w-4xl mx-auto text-white z-10 animate-fade-in-up">
+            <div class="mb-6">
+                <i data-lucide="anchor" class="w-12 h-12 mx-auto text-amber-500 mb-4 opacity-90"></i>
+                <span class="inline-block py-1 px-3 rounded-full bg-black/40 border border-amber-500/30 uppercase tracking-[0.2em] text-[10px] md:text-xs font-bold text-amber-200">Ministerio Pr. Julio César Mendoza</span>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 drop-shadow-2xl leading-tight serif-font">Volviendo a la<br/><span class="text-amber-500">Senda Antigua</span></h1>
+            
+            <div class="max-w-3xl mx-auto bg-slate-900/60 p-6 md:p-8 rounded-xl backdrop-blur-sm border-l-4 border-amber-600 shadow-2xl">
+                <p class="text-lg md:text-2xl font-serif italic text-slate-100 leading-relaxed">
+                    "Así dijo Jehová: Paraos en los caminos, y mirad, y preguntad por las sendas antiguas, cuál sea el buen camino, y andad por él, y hallaréis descanso para vuestra alma."
+                </p>
+                <div class="flex justify-end items-center mt-4">
+                    <div class="h-px bg-amber-500/50 w-12 mr-3"></div>
+                    <span class="text-sm text-amber-400 font-bold uppercase tracking-wider">Jeremías 6:16</span>
+                </div>
+            </div>
+
+            <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#contenido" class="bg-amber-700 hover:bg-amber-600 text-white px-8 py-4 rounded text-lg transition shadow-lg font-serif font-bold border-b-4 border-amber-900 hover:border-amber-800">
+                    Explorar Enseñanzas
+                </a>
+            </div>
+        </div>
+        
+        <!-- Flecha animada -->
+        <div class="absolute bottom-8 w-full text-center animate-bounce opacity-70">
+            <i data-lucide="chevron-down" class="mx-auto text-white w-8 h-8"></i>
+        </div>
+    </section>
+
+    <!-- SECCIÓN LECTURA BÍBLICA -->
+    <section id="biblia" class="py-20 bg-amber-50/50">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-slate-900 serif-font">Lectura de las Escrituras</h2>
+                <div class="w-16 h-1 bg-amber-600 mx-auto mt-4 mb-4"></div>
+                <p class="text-slate-600">La autoridad final para el creyente es la Palabra de Dios.</p>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-xl border border-amber-100 overflow-hidden transform hover:-translate-y-1 transition duration-500">
+                <div class="bg-slate-900 text-amber-50 p-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="calendar" class="w-5 h-5 text-amber-400"></i>
+                        <span class="font-bold tracking-wide" id="current-date">Fecha</span>
+                    </div>
+                    <select id="bible-selector" class="bg-slate-800 border border-slate-700 text-sm rounded px-3 py-2 focus:ring-1 focus:ring-amber-500 outline-none w-full sm:w-auto">
+                        <option value="salmos">Salmos 19:7-11</option>
+                        <option value="timoteo">2 Timoteo 3:14-17</option>
+                        <option value="hebreos">Hebreos 4:12-13</option>
+                        <option value="pedro">2 Pedro 1:19-21</option>
+                    </select>
+                </div>
+                <div class="p-8 md:p-12">
+                    <h3 class="text-2xl font-bold text-amber-900 mb-6 serif-font text-center" id="bible-title">La Ley de Jehová es Perfecta</h3>
+                    <div class="prose prose-lg max-w-none font-serif text-slate-700 leading-relaxed text-justify" id="bible-text">
+                        <!-- Texto inyectado dinámicamente -->
+                    </div>
+                    <div class="mt-8 text-center">
+                        <span class="text-xs text-slate-400 uppercase tracking-widest">Reina Valera 1960</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN BIBLIOTECA (CONTENIDO DINÁMICO) -->
+    <section id="contenido" class="py-20 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-8 border-b border-slate-200 pb-4">
+                <div class="mb-4 md:mb-0">
+                    <span class="text-amber-700 font-bold uppercase tracking-wider text-xs flex items-center mb-1">
+                        <i data-lucide="library" class="w-3 h-3 mr-1"></i> Biblioteca Digital
+                    </span>
+                    <h2 class="text-3xl font-bold text-slate-900 serif-font">Devocionales y Enseñanzas</h2>
+                </div>
+                
+                <!-- Buscador -->
+                <div class="w-full md:w-auto relative">
+                    <input type="text" id="search-input" placeholder="Buscar por tema o versículo..." class="w-full md:w-80 pl-10 pr-4 py-3 border border-slate-300 rounded-lg text-sm focus:outline-none focus:border-amber-600 focus:ring-2 focus:ring-amber-100 transition shadow-sm">
+                    <i data-lucide="search" class="w-5 h-5 text-slate-400 absolute left-3 top-3"></i>
+                </div>
+            </div>
+
+            <!-- Grid de Contenido (Aquí se cargan los artículos) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="content-grid">
+                <!-- Se inyecta vía JavaScript -->
+            </div>
+
+            <!-- Botón Cargar Más -->
+            <div class="mt-16 text-center">
+                <button id="load-more-btn" class="group relative inline-flex items-center justify-center px-8 py-3 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-full hover:bg-slate-50 hover:text-amber-700 hover:border-amber-300 transition-all duration-300 shadow-sm">
+                    <span>Explorar archivos antiguos</span>
+                    <i data-lucide="refresh-cw" class="w-4 h-4 ml-2 group-hover:rotate-180 transition-transform duration-500"></i>
+                </button>
+                <p class="text-xs text-slate-400 mt-3">Mostrando contenido seleccionado de la base de datos del ministerio.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN CURSOS -->
+    <section id="cursos" class="py-20 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-900 serif-font">Formación Bíblica</h2>
+                <p class="text-slate-600 mt-2 max-w-2xl mx-auto">"Mi pueblo fue destruido, porque le faltó conocimiento" (Oseas 4:6). Capacítate para servir.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Curso 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border-t-4 border-amber-600 group">
+                    <div class="mb-4 bg-amber-50 w-12 h-12 rounded-lg flex items-center justify-center text-amber-700 group-hover:bg-amber-600 group-hover:text-white transition">
+                        <i data-lucide="book" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-xl text-slate-900 mb-2 serif-font">Teología Sistemática I</h3>
+                    <p class="text-sm text-slate-600 mb-6 leading-relaxed">Un estudio profundo de la doctrina de Dios, las Escrituras y el Hombre basado en la Teología Reformada.</p>
+                    <button onclick="registerCourse('Teología Sistemática')" class="w-full py-2 border border-amber-600 text-amber-700 font-bold rounded hover:bg-amber-600 hover:text-white transition text-sm">Inscribirse vía WhatsApp</button>
+                </div>
+                <!-- Curso 2 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border-t-4 border-slate-700 group">
+                    <div class="mb-4 bg-slate-50 w-12 h-12 rounded-lg flex items-center justify-center text-slate-700 group-hover:bg-slate-700 group-hover:text-white transition">
+                        <i data-lucide="history" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-xl text-slate-900 mb-2 serif-font">Historia de la Iglesia</h3>
+                    <p class="text-sm text-slate-600 mb-6 leading-relaxed">Desde Pentecostés hasta la Reforma. Conoce a los mártires, apologistas y padres de la fe.</p>
+                    <button onclick="registerCourse('Historia de la Iglesia')" class="w-full py-2 border border-slate-600 text-slate-700 font-bold rounded hover:bg-slate-600 hover:text-white transition text-sm">Inscribirse vía WhatsApp</button>
+                </div>
+                <!-- Curso 3 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border-t-4 border-slate-700 group">
+                    <div class="mb-4 bg-slate-50 w-12 h-12 rounded-lg flex items-center justify-center text-slate-700 group-hover:bg-slate-700 group-hover:text-white transition">
+                        <i data-lucide="search-check" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-bold text-xl text-slate-900 mb-2 serif-font">Exégesis Bíblica</h3>
+                    <p class="text-sm text-slate-600 mb-6 leading-relaxed">Aprende a interpretar la Biblia correctamente respetando su contexto histórico, gramatical y literario.</p>
+                    <button onclick="registerCourse('Exégesis')" class="w-full py-2 border border-slate-600 text-slate-700 font-bold rounded hover:bg-slate-600 hover:text-white transition text-sm">Inscribirse vía WhatsApp</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-16 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div class="text-center md:text-left">
+                <span class="text-amber-500 font-bold serif-font text-2xl block mb-2">Palabras de Vida</span>
+                <p class="text-sm text-slate-300">Ministerio del Pr. Julio César Mendoza</p>
+                <p class="text-xs mt-4 max-w-md mx-auto md:mx-0 font-serif italic text-slate-500">
+                    "La hierba se seca, y la flor se marchita, mas la palabra del Dios nuestro permanece para siempre."<br>(Isaías 40:8)
+                </p>
+            </div>
+            <div class="flex flex-col items-center md:items-end">
+                <button onclick="contactDonation()" class="flex items-center bg-slate-800 hover:bg-slate-700 text-green-400 px-6 py-3 rounded-full transition mb-4 border border-slate-700">
+                    <i data-lucide="heart" class="w-4 h-4 mr-2"></i> Apoyar el Ministerio
+                </button>
+                <div class="flex space-x-4 text-xs text-slate-600">
+                    <span>&copy; 2024 Senda Antigua</span>
+                    <span>•</span>
+                    <span>Sola Scriptura</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL DE LECTURA (POP-UP) -->
+    <div id="reading-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-slate-900/90 p-4 opacity-0 transition-opacity duration-300 backdrop-blur-sm">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto transform scale-95 transition-transform duration-300 border border-amber-100" id="reading-modal-panel">
+            <div class="sticky top-0 bg-white/95 backdrop-blur border-b border-amber-100 px-6 py-4 flex justify-between items-center z-10">
+                <div class="flex items-center">
+                    <span class="w-2 h-8 bg-amber-600 rounded mr-3"></span>
+                    <span class="text-xs font-bold text-amber-800 uppercase tracking-widest" id="modal-tag">CATEGORÍA</span>
+                </div>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-red-500 hover:bg-red-50 p-2 rounded-full transition"><i data-lucide="x" class="w-6 h-6"></i></button>
+            </div>
+            <div class="p-8 md:p-12">
+                <h2 class="text-3xl font-bold text-slate-900 serif-font mb-4 leading-tight" id="modal-title">Título del Artículo</h2>
+                
+                <div class="flex flex-wrap items-center gap-3 text-slate-500 text-xs mb-8 border-b border-slate-100 pb-6">
+                    <span class="flex items-center text-amber-700 font-bold"><i data-lucide="user" class="w-3 h-3 mr-1"></i> Pr. Julio C. Mendoza</span>
+                    <span>•</span>
+                    <span class="flex items-center"><i data-lucide="book" class="w-3 h-3 mr-1"></i> Ref: <span id="modal-verse-ref" class="ml-1 font-mono text-slate-700">Juan 3:16</span></span>
+                </div>
+                
+                <div class="prose prose-lg prose-slate max-w-none font-serif text-slate-800 leading-relaxed" id="modal-body">
+                    <!-- Contenido inyectado -->
+                </div>
+
+                <div class="mt-12 pt-8 border-t border-slate-100 text-center">
+                    <p class="text-sm text-slate-400 italic mb-4">Comparte esta palabra de vida</p>
+                    <button onclick="contactDonation()" class="text-green-600 font-bold hover:underline text-sm">¿Fue de bendición? Considera ofrenda
